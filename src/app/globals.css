@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-ivory: #f5f1e9;
+  --color-beige: #e8dfd2;
+  --color-charcoal: #302d29;
+  --color-brown: #817365;
+  /* Darker brown for small text, keeps AA contrast on ivory/beige. */
+  --color-muted: #675a4d;
+  --color-champagne: #b99d6c;
+  --color-champagne-soft: #d9c7a3;
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-cormorant);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-charcoal);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--color-champagne-soft);
+  color: var(--color-charcoal);
+}
