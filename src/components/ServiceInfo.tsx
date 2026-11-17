@@ -1,30 +1,54 @@
-import { serviceInfo } from "@/data/content";
+"use client";
+
+import { useLang } from "@/lib/i18n";
+import BotanicalSprig from "./Botanical";
+import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
 export default function ServiceInfo() {
+  const { t } = useLang();
+
   return (
     <section
       aria-labelledby="service-title"
-      className="mx-auto grid max-w-6xl gap-12 px-6 py-20 md:py-28 lg:grid-cols-[1fr_1.4fr] lg:gap-20"
+      className="px-5 py-20 md:px-8 md:py-28"
     >
-      <SectionHeading
-        id="service-title"
-        eyebrow="Informasi Layanan"
-        title="Good to know before you order."
-        text="Ketentuan layanan RiWed, kami rangkum agar proses pemesanan terasa jelas dan nyaman."
-        align="left"
-      />
+      {/* Terms presented like an invitation card: paper, double frame, ornament. */}
+      <Reveal className="relative mx-auto max-w-4xl bg-cream-light p-2.5 shadow-[0_30px_60px_-40px_rgba(43,27,19,0.5)] md:p-4">
+        <div className="relative overflow-hidden border border-espresso/50 px-5 py-12 md:px-14 md:py-20">
+          <BotanicalSprig className="pointer-events-none absolute -left-5 -top-4 h-36 w-24 -rotate-12 text-pandan/60 md:h-52 md:w-36" />
+          <BotanicalSprig
+            flip
+            className="pointer-events-none absolute -right-5 -top-4 h-36 w-24 rotate-12 text-pandan/60 md:h-52 md:w-36"
+          />
 
-      <dl className="grid gap-x-10 sm:grid-cols-2">
-        {serviceInfo.map((item) => (
-          <div key={item.title} className="border-t border-charcoal/15 py-6">
-            <dt className="text-xs font-medium uppercase tracking-[0.2em] text-brown">
-              {item.title}
-            </dt>
-            <dd className="mt-2 leading-relaxed">{item.text}</dd>
+          <div className="relative">
+            <SectionHeading
+              id="service-title"
+              align="center"
+              eyebrow={t.service.eyebrow}
+              title={t.service.title}
+              text={t.service.text}
+            />
           </div>
-        ))}
-      </dl>
+
+          <dl className="relative mt-12 grid gap-x-12 md:mt-16 md:grid-cols-2">
+            {t.service.items.map((item, index) => (
+              <Reveal
+                key={item.title}
+                delay={(index % 2) * 100}
+                className="border-t border-espresso/20 py-5"
+              >
+                <dt className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-pandan-deep">
+                  <span aria-hidden className="size-1.5 rotate-45 bg-pandan" />
+                  {item.title}
+                </dt>
+                <dd className="mt-2 leading-relaxed">{item.text}</dd>
+              </Reveal>
+            ))}
+          </dl>
+        </div>
+      </Reveal>
     </section>
   );
 }

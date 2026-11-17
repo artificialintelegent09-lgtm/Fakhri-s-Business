@@ -1,9 +1,14 @@
+import type { ReactNode } from "react";
+import Reveal from "./Reveal";
+
 type SectionHeadingProps = {
   id?: string;
   eyebrow?: string;
-  title: string;
+  title: ReactNode;
   text?: string;
   align?: "left" | "center";
+  /** Use on espresso backgrounds. */
+  tone?: "light" | "dark";
 };
 
 export default function SectionHeading({
@@ -11,24 +16,43 @@ export default function SectionHeading({
   eyebrow,
   title,
   text,
-  align = "center",
+  align = "left",
+  tone = "light",
 }: SectionHeadingProps) {
-  const alignment = align === "center" ? "mx-auto text-center" : "";
+  const centered = align === "center";
+  const dark = tone === "dark";
 
   return (
-    <div className={`max-w-2xl ${alignment}`}>
+    <div className={`max-w-2xl ${centered ? "mx-auto text-center" : ""}`}>
       {eyebrow && (
-        <p className="mb-4 text-xs font-medium uppercase tracking-[0.25em] text-muted">
+        <Reveal
+          as="p"
+          className={`mb-5 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.22em] ${
+            dark ? "text-pandan" : "text-pandan-deep"
+          } ${centered ? "justify-center" : ""}`}
+        >
+          <span aria-hidden className="h-px w-8 bg-pandan" />
           {eyebrow}
-        </p>
+        </Reveal>
       )}
-      <h2
-        id={id}
-        className="font-serif text-4xl font-medium leading-tight sm:text-5xl"
+      <Reveal
+        as="h2"
+        delay={100}
+        className="font-serif text-[2.5rem] font-light leading-[1.05] sm:text-6xl"
       >
-        {title}
-      </h2>
-      {text && <p className="mt-5 leading-relaxed text-muted">{text}</p>}
+        <span id={id}>{title}</span>
+      </Reveal>
+      {text && (
+        <Reveal
+          as="p"
+          delay={200}
+          className={`mt-5 text-base leading-relaxed md:text-lg ${
+            dark ? "text-cream/75" : "text-espresso-soft"
+          }`}
+        >
+          {text}
+        </Reveal>
+      )}
     </div>
   );
 }

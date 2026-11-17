@@ -1,24 +1,22 @@
 import { brand } from "@/data/content";
+import { dictionaries, type Lang } from "@/data/dictionaries";
 import type { Product } from "@/data/products";
-
-const WHATSAPP_BASE_URL = `https://wa.me/${brand.whatsappNumber}`;
 
 export function formatRupiah(amount: number): string {
   return `Rp${amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`;
 }
 
 export function whatsappUrl(message?: string): string {
-  return message
-    ? `${WHATSAPP_BASE_URL}?text=${encodeURIComponent(message)}`
-    : WHATSAPP_BASE_URL;
+  const base = `https://wa.me/${brand.whatsappNumber}`;
+  return message ? `${base}?text=${encodeURIComponent(message)}` : base;
 }
 
-export function productOrderUrl(product: Product): string {
+export function productOrderUrl(product: Product, lang: Lang): string {
   return whatsappUrl(
-    `Halo RiWed! Saya tertarik memesan undangan digital dengan template ${product.name} seharga ${formatRupiah(product.price)}. Boleh minta informasi lebih lanjut mengenai proses pemesanannya?`,
+    dictionaries[lang].whatsapp.order(product.name, formatRupiah(product.price)),
   );
 }
 
-export const generalInquiryUrl = whatsappUrl(
-  "Halo RiWed! Saya tertarik dengan undangan digital pernikahan dari RiWed. Boleh minta informasi lebih lanjut?",
-);
+export function generalInquiryUrl(lang: Lang): string {
+  return whatsappUrl(dictionaries[lang].whatsapp.general);
+}

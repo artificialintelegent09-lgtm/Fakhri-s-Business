@@ -3,12 +3,16 @@ import path from "node:path";
 
 const publicDir = path.join(process.cwd(), "public");
 const COVER_EXTENSIONS = ["webp", "jpg", "jpeg", "png"];
+const LOGO_EXTENSIONS = ["png", "jpg", "jpeg", "webp"];
 
-/** Public path of the logo if the file has been added, otherwise null. */
+/** Public path of the logo (`public/images/riwed-logo.*`) if present, else null. */
 export function getLogoSrc(): string | null {
-  return existsSync(path.join(publicDir, "images", "riwed-logo.png"))
-    ? "/images/riwed-logo.png"
-    : null;
+  for (const ext of LOGO_EXTENSIONS) {
+    if (existsSync(path.join(publicDir, "images", `riwed-logo.${ext}`))) {
+      return `/images/riwed-logo.${ext}`;
+    }
+  }
+  return null;
 }
 
 /**

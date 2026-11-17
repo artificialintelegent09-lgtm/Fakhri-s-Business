@@ -1,30 +1,37 @@
-import { brand, navLinks } from "@/data/content";
-import { generalInquiryUrl } from "@/lib/whatsapp";
-import Logo from "./Logo";
+"use client";
 
-export default function Footer() {
+import type { ReactNode } from "react";
+import { brand, navItems } from "@/data/content";
+import { useLang } from "@/lib/i18n";
+import { generalInquiryUrl } from "@/lib/whatsapp";
+import LanguageSwitch from "./LanguageSwitch";
+
+export default function Footer({ logo }: { logo: ReactNode }) {
+  const { lang, t } = useLang();
+
   return (
-    <footer className="border-t border-charcoal/10 bg-ivory">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
+    <footer className="relative overflow-hidden bg-espresso text-cream">
+      <div className="relative mx-auto grid max-w-6xl gap-12 px-5 pb-10 pt-16 md:grid-cols-[1.5fr_1fr_1fr] md:px-8 md:pt-20">
         <div>
-          <Logo />
-          <p className="mt-4 font-serif text-xl italic text-muted">
+          {logo}
+          <p className="mt-5 max-w-xs font-serif text-2xl font-light italic leading-snug text-cream/85">
             {brand.tagline}
           </p>
+          <LanguageSwitch className="mt-6 border-cream/30 [&_button]:text-cream/70 [&_button:hover]:text-cream [&_button[aria-pressed=true]]:bg-cream [&_button[aria-pressed=true]]:text-espresso" />
         </div>
 
-        <nav aria-label="Navigasi footer">
-          <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-brown">
-            Menu
+        <nav aria-label={t.nav.mainNav}>
+          <p className="mb-4 text-xs font-medium uppercase tracking-[0.22em] text-pandan">
+            {t.footer.menu}
           </p>
-          <ul className="space-y-2 text-sm">
-            {navLinks.map((link) => (
-              <li key={link.href}>
+          <ul className="space-y-1 text-[0.95rem]">
+            {navItems.map((item) => (
+              <li key={item.key}>
                 <a
-                  href={link.href}
-                  className="text-muted transition-colors duration-200 hover:text-charcoal"
+                  href={item.href}
+                  className="inline-block py-1.5 text-cream/75 transition-colors duration-200 hover:text-cream"
                 >
-                  {link.label}
+                  {t.nav[item.key]}
                 </a>
               </li>
             ))}
@@ -32,27 +39,35 @@ export default function Footer() {
         </nav>
 
         <div>
-          <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-brown">
-            Contact
+          <p className="mb-4 text-xs font-medium uppercase tracking-[0.22em] text-pandan">
+            {t.footer.contact}
           </p>
           <a
-            href={generalInquiryUrl}
+            href={generalInquiryUrl(lang)}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-muted transition-colors duration-200 hover:text-charcoal"
+            className="inline-block py-1.5 text-[0.95rem] text-cream/75 transition-colors duration-200 hover:text-cream"
           >
             WhatsApp {brand.whatsappDisplay}
-            <span className="sr-only"> (membuka tab baru)</span>
+            <span className="sr-only"> ({t.collection.newTab})</span>
           </a>
         </div>
       </div>
 
-      <div className="border-t border-charcoal/10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-6 text-xs text-muted sm:flex-row sm:justify-between">
+      {/* Oversized wordmark as a quiet editorial closing. */}
+      <p
+        aria-hidden
+        className="pointer-events-none select-none text-center font-serif text-[27vw] font-light leading-[0.8] tracking-tight text-cream/[0.06] md:text-[19rem]"
+      >
+        {brand.name}
+      </p>
+
+      <div className="relative border-t border-cream/15">
+        <div className="mx-auto flex max-w-6xl flex-col gap-1 px-5 py-6 text-xs text-cream/60 sm:flex-row sm:justify-between md:px-8">
           <p>
-            &copy; {brand.copyrightYear} {brand.name}. All rights reserved.
+            &copy; {brand.copyrightYear} {brand.name}. {t.footer.rights}
           </p>
-          <p>{brand.watermark}</p>
+          <p>{t.footer.watermark}</p>
         </div>
       </div>
     </footer>

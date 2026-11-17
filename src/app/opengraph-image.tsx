@@ -13,12 +13,9 @@ export default function OpengraphImage() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "#F5F1E9",
-          color: "#302D29",
-          border: "24px solid #F5F1E9",
+          padding: 28,
+          background: "#EFE4D2",
+          color: "#2B1B13",
         }}
       >
         <div
@@ -29,22 +26,26 @@ export default function OpengraphImage() {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            border: "2px solid #B99D6C",
+            border: "2px solid #2F9B45",
           }}
         >
-          <div style={{ fontSize: 120, fontFamily: "serif", letterSpacing: 8 }}>
+          <div style={{ fontSize: 132, fontFamily: "serif", letterSpacing: 6 }}>
             {brand.name}
           </div>
-          <div style={{ fontSize: 36, marginTop: 24, color: "#675A4D" }}>
+          <div style={{ width: 96, height: 2, marginTop: 20, background: "#2F9B45" }} />
+          <div
+            style={{
+              fontSize: 38,
+              marginTop: 28,
+              fontFamily: "serif",
+              fontStyle: "italic",
+              color: "#5B4637",
+            }}
+          >
             {brand.tagline}
           </div>
           <div
-            style={{
-              fontSize: 22,
-              marginTop: 48,
-              letterSpacing: 6,
-              color: "#817365",
-            }}
+            style={{ fontSize: 22, marginTop: 44, letterSpacing: 6, color: "#1D6B30" }}
           >
             UNDANGAN PERNIKAHAN DIGITAL
           </div>

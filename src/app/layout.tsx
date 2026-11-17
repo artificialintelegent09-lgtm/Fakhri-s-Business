@@ -12,7 +12,8 @@ const inter = Inter({
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -22,7 +23,7 @@ const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
 
 const title = `${brand.name} — Undangan Pernikahan Digital`;
 const description =
-  "RiWed menyediakan undangan pernikahan digital yang elegan dan personal melalui template siap pakai. Lihat koleksi, cek harga pembukaan, dan pesan lewat WhatsApp.";
+  "RiWed menyediakan undangan pernikahan digital yang elegan dan personal melalui template website siap pakai. Lihat koleksi, cek harga pembukaan, dan pesan lewat WhatsApp.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -32,10 +33,12 @@ export const metadata: Metadata = {
   },
   description,
   applicationName: brand.name,
+  icons: { icon: "/favicon.ico" },
   openGraph: {
     type: "website",
     siteName: brand.name,
     locale: "id_ID",
+    alternateLocale: ["en_US"],
     title,
     description,
     url: "/",
@@ -48,7 +51,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f5f1e9",
+  themeColor: "#efe4d2",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

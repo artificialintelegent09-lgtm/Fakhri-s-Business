@@ -2,28 +2,39 @@ import Image from "next/image";
 import { brand } from "@/data/content";
 import { getLogoSrc } from "@/lib/assets";
 
-/** Uses /images/riwed-logo.png when present, otherwise a text wordmark. */
-export default function Logo({ className = "" }: { className?: string }) {
+/**
+ * Logo badge (when `public/images/riwed-logo.*` exists) with the RiWed wordmark.
+ * Falls back to the wordmark alone. Server component: pass it into client
+ * components as an element (e.g. `<Navbar logo={<Logo />} />`).
+ */
+export default function Logo({
+  size = 44,
+  priority = true,
+  className = "",
+}: {
+  size?: number;
+  priority?: boolean;
+  className?: string;
+}) {
   const logoSrc = getLogoSrc();
 
-  if (logoSrc) {
-    return (
-      <Image
-        src={logoSrc}
-        alt={brand.name}
-        width={0}
-        height={0}
-        sizes="160px"
-        className={`h-9 w-auto ${className}`}
-      />
-    );
-  }
-
   return (
-    <span
-      className={`font-serif text-3xl font-medium leading-none tracking-wide ${className}`}
-    >
-      {brand.name}
+    <span className={`inline-flex items-center gap-3 ${className}`}>
+      {logoSrc && (
+        <Image
+          src={logoSrc}
+          alt=""
+          width={size}
+          height={size}
+          sizes={`${size}px`}
+          priority={priority}
+          className="rounded-full object-cover ring-1 ring-espresso/15"
+          style={{ width: size, height: size }}
+        />
+      )}
+      <span className="font-serif text-[1.75rem] font-medium leading-none tracking-wide">
+        {brand.name}
+      </span>
     </span>
   );
 }
