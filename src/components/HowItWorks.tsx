@@ -3,6 +3,7 @@
 import { Check } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import Reveal from "./Reveal";
+import Wave from "./Wave";
 
 export default function HowItWorks() {
   const { t } = useLang();
@@ -11,13 +12,14 @@ export default function HowItWorks() {
     <section
       id="how-it-works"
       aria-labelledby="how-title"
-      className="relative rounded-t-[2.5rem] bg-butter-soft py-16 md:rounded-t-[4rem] md:py-28"
+      className="relative bg-wash pb-16 pt-14 md:pb-28 md:pt-24"
     >
+      <Wave className="text-wash" />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <div className="max-w-xl">
           <Reveal
             as="h2"
-            className="font-serif text-[2.4rem] font-normal italic leading-none sm:text-6xl"
+            className="font-serif text-[2.5rem] font-normal italic leading-none sm:text-6xl"
           >
             <span id="how-title">{t.how.title}</span>
           </Reveal>
@@ -34,14 +36,14 @@ export default function HowItWorks() {
                 <Reveal
                   variant="line-y"
                   delay={index * 150}
-                  className="absolute bottom-[-2.25rem] left-[1.4rem] top-14 w-px bg-cocoa/30 md:hidden"
+                  className="absolute bottom-[-2.25rem] left-[1.4rem] top-14 w-px bg-cherry/35 md:hidden"
                 />
               )}
               {index < t.how.steps.length - 1 && (
                 <Reveal
                   variant="line"
                   delay={index * 150}
-                  className="absolute left-14 right-[-2.5rem] top-[1.4rem] hidden h-px bg-cocoa/25 md:block"
+                  className="absolute left-14 right-[-2.5rem] top-[1.4rem] hidden h-px bg-cherry/30 md:block"
                 />
               )}
 
@@ -63,7 +65,7 @@ export default function HowItWorks() {
         </ol>
 
         {/* Service terms, kept short and scannable. */}
-        <div className="mt-14 border-t border-cocoa/20 pt-8 md:mt-20 md:grid md:grid-cols-12 md:gap-10 md:pt-10">
+        <div className="mt-14 border-t border-cocoa/15 pt-8 md:mt-20 md:grid md:grid-cols-12 md:gap-10 md:pt-10">
           <Reveal as="h3" className="font-serif text-3xl font-semibold md:col-span-3">
             {t.how.infoTitle}
           </Reveal>

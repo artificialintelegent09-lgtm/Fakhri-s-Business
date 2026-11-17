@@ -15,6 +15,14 @@ type ProductCardProps = {
   className?: string;
 };
 
+// Each preview gets its own silhouette so the three read as a set, not as a grid of identical tiles.
+const frames = [
+  "rounded-t-[999px] rounded-b-[1.25rem]",
+  "rounded-[1.5rem]",
+  "rounded-t-[999px] rounded-b-[1.25rem]",
+];
+
+/** One template, presented like a stationery plate: a mounted preview with the details set underneath. */
 export default function ProductCard({
   product,
   index,
@@ -27,46 +35,57 @@ export default function ProductCard({
   return (
     <article
       aria-label={`${product.name}. ${t.collection.productPosition(index + 1, total)}`}
-      className={`group flex flex-col overflow-hidden rounded-[1.75rem] bg-cream-light shadow-[0_18px_40px_-28px_rgba(53,37,42,0.55)] ${className}`}
+      className={`group ${className}`}
     >
-      <div className="relative aspect-[5/4] overflow-hidden bg-blush lg:aspect-[4/5]">
-        <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.04]">
-          <PhotoImage
-            photo={photo}
-            lang={lang}
-            sizes="(min-width: 1024px) 360px, (min-width: 768px) 46vw, 82vw"
-          />
+      {/* Preview on a soft pink mount. */}
+      <div className="relative pb-3 pr-3">
+        <div
+          aria-hidden
+          className={`absolute inset-0 translate-x-0 bg-blush/55 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:translate-y-0.5 ${frames[index]}`}
+          style={{ top: "0.75rem", left: "0.75rem" }}
+        />
+        <div
+          className={`relative aspect-[4/5] overflow-hidden bg-blush-light shadow-[0_24px_40px_-28px_rgba(53,37,42,0.6)] ${frames[index]}`}
+        >
+          <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.04]">
+            <PhotoImage
+              photo={photo}
+              lang={lang}
+              sizes="(min-width: 1024px) 360px, (min-width: 768px) 46vw, 76vw"
+            />
+          </div>
         </div>
-        <span className="absolute left-4 top-4 rounded-full bg-cream-light/95 px-3.5 py-1.5 text-xs font-medium tracking-wide text-cocoa">
-          {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-        </span>
       </div>
 
-      <div className="flex flex-1 flex-col p-5 md:p-6">
-        <h3 className="font-serif text-[1.9rem] font-semibold leading-none">
+      <div className="mt-6 pr-3">
+        <p className="flex items-center gap-3 text-xs font-medium tracking-[0.22em] text-cherry-deep">
+          {String(index + 1).padStart(2, "0")}
+          <span aria-hidden className="h-px flex-1 bg-cocoa/15" />
+        </p>
+        <h3 className="mt-3 font-serif text-[2rem] font-semibold leading-none md:text-[2.2rem]">
           {product.name}
         </h3>
-        <p className="mt-2 text-cocoa-soft">
-          {t.products[product.slug]?.description}
-        </p>
+        <p className="mt-2 text-cocoa-soft">{t.products[product.slug]?.description}</p>
 
-        <div className="mt-5">
-          <p className="text-[0.68rem] font-medium uppercase tracking-[0.18em] text-cherry-deep">
-            {t.collection.specialLabel}
-          </p>
-          <p className="mt-1 flex flex-wrap items-baseline gap-x-3">
-            <span className="font-serif text-[2.1rem] font-semibold leading-none">
-              <span className="sr-only">{t.collection.openingPrice}: </span>
-              {formatRupiah(product.price)}
+        <div className="mt-4 flex items-end justify-between gap-3">
+          <p>
+            <span className="block text-[0.68rem] font-medium uppercase tracking-[0.18em] text-cherry-deep">
+              {t.collection.specialLabel}
             </span>
-            <s className="text-sm text-cocoa-soft">
-              <span className="sr-only">{t.collection.regularPrice}: </span>
-              {formatRupiah(product.originalPrice)}
-            </s>
+            <span className="mt-0.5 flex flex-wrap items-baseline gap-x-2.5">
+              <span className="font-serif text-[2rem] font-semibold leading-none">
+                <span className="sr-only">{t.collection.openingPrice}: </span>
+                {formatRupiah(product.price)}
+              </span>
+              <s className="text-sm text-cocoa-soft">
+                <span className="sr-only">{t.collection.regularPrice}: </span>
+                {formatRupiah(product.originalPrice)}
+              </s>
+            </span>
           </p>
         </div>
 
-        <div className="mt-5 flex flex-col gap-2.5">
+        <div className="mt-5 flex flex-col items-stretch gap-1 sm:flex-row sm:items-center sm:gap-3">
           <ButtonLink
             href={productOrderUrl(product, lang)}
             external
@@ -78,10 +97,10 @@ export default function ProductCard({
             href={product.demoUrl}
             external
             externalLabel={t.collection.newTab}
-            variant="secondary"
+            variant="link"
           >
             {t.collection.livePreview}
-            <ExternalLink size={15} aria-hidden />
+            <ExternalLink size={14} aria-hidden />
           </ButtonLink>
         </div>
       </div>

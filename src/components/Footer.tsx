@@ -3,14 +3,16 @@
 import type { ReactNode } from "react";
 import { brand } from "@/data/content";
 import { useLang } from "@/lib/i18n";
+import Wave from "./Wave";
 
 export default function Footer({ logo }: { logo: ReactNode }) {
   const { t } = useLang();
 
   return (
-    <footer className="bg-cocoa pb-[calc(5rem+env(safe-area-inset-bottom))] text-cream md:pb-0">
+    <footer className="relative bg-cocoa pb-[calc(5rem+env(safe-area-inset-bottom))] pt-6 text-cream md:pb-0">
+      <Wave className="text-cocoa" />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <div className="flex flex-col gap-6 border-t border-cream/15 py-10 md:flex-row md:items-end md:justify-between">
+        <div className="flex flex-col gap-6 py-10 md:flex-row md:items-end md:justify-between">
           <div>
             {logo}
             <p className="mt-4 font-serif text-2xl italic text-cream/85">{brand.tagline}</p>

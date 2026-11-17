@@ -20,3 +20,16 @@ These are meant to be replaced with RiWed's own photos. All paths and crops live
 
 The three collection photos are mood/reference images of invitation stationery. They are
 **not** screenshots of the live template demos.
+
+## Floral accents
+
+Real flower photographs (also Unsplash License) shot on white backgrounds. The white
+background was converted to transparency, and the images were cropped and resized, so
+they blend onto the page colour. They are decoration only; replace or remove them in
+`src/data/images.ts` (`florals`) without touching the layout.
+
+| File | Used in | Photographer | Source |
+| --- | --- | --- | --- |
+| `public/images/floral/flora-ranunculus.webp` | Collection heading | Marianne Krohn | https://unsplash.com/photos/a-group-of-pink-flowers-on-a-white-background-v3cK5Drr1r8 |
+| `public/images/floral/flora-dried-top.webp` | Hero (cherry accent), final CTA | Evie S. | https://unsplash.com/photos/dried-red-and-cream-flowers-on-white-bSVGnUCk4tk |
+| `public/images/floral/flora-lisianthus.webp` | Hero (small bouquet) | Natalie Kinnear | https://unsplash.com/photos/a-bunch-of-pink-and-white-flowers-with-a-pink-ribbon-MYIod48sQCw |

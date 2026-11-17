@@ -4,8 +4,13 @@ import { ChevronsRight } from "lucide-react";
 import { useRef, useState } from "react";
 import { products } from "@/data/products";
 import { useLang } from "@/lib/i18n";
+import Floral from "./Floral";
 import ProductCard from "./ProductCard";
 import Reveal from "./Reveal";
+import Wave from "./Wave";
+
+// Asymmetric offsets on large screens; stacked/swiped and aligned on mobile.
+const offsets = ["", "lg:mt-20", "lg:mt-8"];
 
 export default function Collection() {
   const { t } = useLang();
@@ -14,7 +19,7 @@ export default function Collection() {
 
   const cards = () => Array.from(trackRef.current?.children ?? []) as HTMLElement[];
 
-  // Cards are centered with equal padding, so scroll position maps evenly to an index.
+  // Slides are centered with equal padding, so scroll position maps evenly to an index.
   const onScroll = () => {
     const [first, second] = cards();
     if (!trackRef.current || !second) return;
@@ -37,39 +42,53 @@ export default function Collection() {
     <section
       id="collection"
       aria-labelledby="collection-title"
-      className="relative -mt-12 rounded-t-[2.5rem] bg-blush-light pb-16 pt-14 md:-mt-16 md:rounded-t-[4rem] md:pb-28 md:pt-24"
+      className="relative bg-cream-light pb-16 pt-12 md:pb-28 md:pt-20"
     >
-      <div className="mx-auto max-w-6xl px-5 text-center md:px-8">
-        <Reveal className="flex items-center justify-center gap-4">
-          <span aria-hidden className="h-px w-10 bg-cocoa/30 sm:w-20" />
+      <Wave className="text-cream-light" />
+      {/* Pink wash in one corner; the section stays butter cream. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(55% 22% at 100% 0%, rgb(245 184 184 / 0.4), transparent 72%), radial-gradient(50% 18% at 0% 100%, rgb(245 184 184 / 0.28), transparent 72%)",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-6xl px-5 md:px-8">
+        <Reveal className="relative max-w-xl pr-16 sm:pr-0">
+          <p className="inline-flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.2em] text-cherry-deep">
+            <span aria-hidden className="size-1.5 rotate-45 bg-cherry" />
+            {t.collection.specialLabel}
+          </p>
           <h2
             id="collection-title"
-            className="font-serif text-[2.4rem] font-normal italic leading-none sm:text-6xl"
+            className="mt-3 font-serif text-[2.5rem] font-normal italic leading-none sm:text-6xl"
           >
             {t.collection.title}
           </h2>
-          <span aria-hidden className="h-px w-10 bg-cocoa/30 sm:w-20" />
-        </Reveal>
-        <Reveal as="p" delay={100} className="mt-3 text-lg text-cocoa-soft">
-          {t.collection.text}
-        </Reveal>
-        <Reveal delay={200} className="mt-5 flex flex-col items-center gap-2">
-          <span className="inline-flex items-center gap-2 rounded-full bg-cocoa px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-butter">
-            <span aria-hidden className="size-1.5 rounded-full bg-butter" />
-            {t.collection.specialLabel}
-          </span>
-          <p className="max-w-sm text-sm leading-relaxed text-cocoa-soft">
+          <p className="mt-3 text-lg text-cocoa-soft">{t.collection.text}</p>
+          <p className="mt-2 max-w-sm text-sm leading-relaxed text-cocoa-soft/90">
             {t.collection.specialNote}
           </p>
         </Reveal>
       </div>
+      {/* Blooms growing in from the screen edge, so the stems always meet the edge. */}
+      <Floral
+        name="ranunculus"
+        flip
+        sway
+        origin="0% 50%"
+        sizes="160px"
+        className="absolute right-0 top-10 w-[22%] max-w-[7rem] md:top-24 md:max-w-[10rem]"
+      />
 
-      {/* Swipeable on phones/tablets (next card peeks in); a 3-column grid on desktop. */}
-      <div className="mt-10 md:mt-14 lg:mx-auto lg:max-w-6xl lg:px-8">
+      {/* Swipeable on phones/tablets (the next plate peeks in); a 3-column grid on desktop. */}
+      <Reveal variant="fade" delay={120} className="relative mt-10 md:mt-14 lg:mx-auto lg:max-w-6xl lg:px-8">
         <div
           ref={trackRef}
           onScroll={onScroll}
-          className="swipe-track flex snap-x snap-mandatory gap-4 overflow-x-auto px-[12%] pb-6 pt-1 md:px-[27%] lg:grid lg:snap-none lg:grid-cols-3 lg:gap-8 lg:overflow-visible lg:px-0 lg:pb-0 lg:pt-0"
+          className="swipe-track flex snap-x snap-mandatory gap-5 overflow-x-auto px-[12%] pb-2 pt-1 md:px-[27%] lg:grid lg:snap-none lg:grid-cols-3 lg:gap-10 lg:overflow-visible lg:px-0 lg:pb-0 lg:pt-0"
         >
           {products.map((product, index) => (
             <ProductCard
@@ -77,12 +96,12 @@ export default function Collection() {
               product={product}
               index={index}
               total={products.length}
-              className="w-full shrink-0 snap-center lg:shrink"
+              className={`w-full shrink-0 snap-center lg:shrink ${offsets[index] ?? ""}`}
             />
           ))}
         </div>
 
-        <div className="flex flex-col items-center gap-3 lg:hidden">
+        <div className="mt-6 flex flex-col items-center gap-3 lg:hidden">
           <div className="flex items-center gap-2">
             {products.map((product, index) => (
               <button
@@ -95,7 +114,7 @@ export default function Collection() {
               >
                 <span
                   className={`block h-2 rounded-full transition-all duration-300 ${
-                    current === index ? "w-6 bg-cherry-deep" : "w-2 bg-cocoa/30"
+                    current === index ? "w-6 bg-cherry-deep" : "w-2 bg-cocoa/25"
                   }`}
                 />
               </button>
@@ -106,7 +125,7 @@ export default function Collection() {
             <ChevronsRight size={14} aria-hidden />
           </p>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -109,3 +109,50 @@ export const productPhotos: Record<string, Photo> = {
     },
   },
 };
+
+/**
+ * Decorative floral accents. These are real flower photographs shot on white
+ * backgrounds; the white was converted to transparency so each one sits directly
+ * on the page colour. Use them sparingly (see `Floral`).
+ */
+export type FloralAsset = {
+  src: string;
+  width: number;
+  height: number;
+  credit: { author: string; url: string };
+};
+
+export const florals = {
+  /** Blooms on stems entering from a screen edge. */
+  ranunculus: {
+    src: "/images/floral/flora-ranunculus.webp",
+    width: 330,
+    height: 653,
+    credit: {
+      author: "Marianne Krohn",
+      url: "https://unsplash.com/photos/a-group-of-pink-flowers-on-a-white-background-v3cK5Drr1r8",
+    },
+  },
+  /** Dried cherry-red and cream blooms on a branch; the main cherry accent. */
+  driedBranch: {
+    src: "/images/floral/flora-dried-top.webp",
+    width: 640,
+    height: 550,
+    credit: {
+      author: "Evie S.",
+      url: "https://unsplash.com/photos/dried-red-and-cream-flowers-on-white-bSVGnUCk4tk",
+    },
+  },
+  /** Small upright bouquet tied with a blush ribbon. */
+  bouquet: {
+    src: "/images/floral/flora-lisianthus.webp",
+    width: 480,
+    height: 972,
+    credit: {
+      author: "Natalie Kinnear",
+      url: "https://unsplash.com/photos/a-bunch-of-pink-and-white-flowers-with-a-pink-ribbon-MYIod48sQCw",
+    },
+  },
+} satisfies Record<string, FloralAsset>;
+
+export type FloralName = keyof typeof florals;
