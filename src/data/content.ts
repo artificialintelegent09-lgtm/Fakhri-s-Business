@@ -6,9 +6,9 @@ export const brand = {
   whatsappDisplay: "0858-4251-7974",
 };
 
+/** Section anchors used by the desktop nav and the mobile bottom nav. */
 export const navItems = [
   { key: "home", href: "#home" },
   { key: "collection", href: "#collection" },
-  { key: "howItWorks", href: "#how-it-works" },
-  { key: "contact", href: "#contact" },
+  { key: "info", href: "#how-it-works" },
 ] as const;

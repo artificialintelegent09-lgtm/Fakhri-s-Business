@@ -1,8 +1,8 @@
 "use client";
 
+import { Check } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import Reveal from "./Reveal";
-import SectionHeading from "./SectionHeading";
 
 export default function HowItWorks() {
   const { t } = useLang();
@@ -11,49 +11,76 @@ export default function HowItWorks() {
     <section
       id="how-it-works"
       aria-labelledby="how-title"
-      className="relative -mt-10 rounded-t-[2.5rem] bg-cream-light py-20 md:-mt-14 md:rounded-t-[4rem] md:py-28"
+      className="relative rounded-t-[2.5rem] bg-butter-soft py-16 md:rounded-t-[4rem] md:py-28"
     >
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <SectionHeading id="how-title" eyebrow={t.how.eyebrow} title={t.how.title} />
+        <div className="max-w-xl">
+          <Reveal
+            as="h2"
+            className="font-serif text-[2.4rem] font-normal italic leading-none sm:text-6xl"
+          >
+            <span id="how-title">{t.how.title}</span>
+          </Reveal>
+          <Reveal as="p" delay={100} className="mt-4 text-lg leading-relaxed text-cocoa-soft">
+            {t.how.text}
+          </Reveal>
+        </div>
 
-        <ol className="mt-14 grid gap-12 md:mt-20 md:grid-cols-3 md:gap-10">
+        {/* Steps: a vertical timeline on phones, three columns from md. */}
+        <ol className="mt-10 grid gap-9 md:mt-16 md:grid-cols-3 md:gap-10">
           {t.how.steps.map((step, index) => (
-            <li key={step.title} className="relative pl-8 md:pl-0 md:pt-9">
-              {/* Timeline: vertical on mobile, horizontal from md. */}
+            <li key={step.title} className="relative flex gap-5 md:block">
               {index < t.how.steps.length - 1 && (
                 <Reveal
                   variant="line-y"
                   delay={index * 150}
-                  className="absolute bottom-[-3rem] left-0 top-2 w-px bg-espresso/25 md:hidden"
+                  className="absolute bottom-[-2.25rem] left-[1.4rem] top-14 w-px bg-cocoa/30 md:hidden"
                 />
               )}
-              <Reveal
-                variant="line"
-                delay={index * 150}
-                className="absolute left-0 right-[-2.5rem] top-0 hidden h-px bg-espresso/25 md:block"
-              />
-              <span
-                aria-hidden
-                className="absolute left-[-4.5px] top-2 size-2.5 rounded-full bg-pandan md:-top-[4.5px]"
-              />
+              {index < t.how.steps.length - 1 && (
+                <Reveal
+                  variant="line"
+                  delay={index * 150}
+                  className="absolute left-14 right-[-2.5rem] top-[1.4rem] hidden h-px bg-cocoa/25 md:block"
+                />
+              )}
 
-              <Reveal delay={index * 150 + 100}>
-                <p
-                  aria-hidden
-                  className="font-serif text-7xl font-light italic leading-none text-pandan-deep md:text-8xl"
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </p>
-                <h3 className="mt-5 font-serif text-[1.75rem] font-medium leading-tight md:text-3xl">
+              <Reveal
+                delay={index * 150}
+                className="relative z-10 flex size-[2.9rem] shrink-0 items-center justify-center rounded-full bg-cherry-deep font-serif text-xl font-semibold text-cream-light"
+              >
+                <span aria-hidden>{index + 1}</span>
+              </Reveal>
+
+              <Reveal delay={index * 150 + 100} className="md:mt-6">
+                <h3 className="font-serif text-[1.65rem] font-semibold leading-tight md:text-3xl">
                   {step.title}
                 </h3>
-                <p className="mt-3 max-w-sm leading-relaxed text-espresso-soft">
-                  {step.text}
-                </p>
+                <p className="mt-2 max-w-xs leading-relaxed text-cocoa-soft">{step.text}</p>
               </Reveal>
             </li>
           ))}
         </ol>
+
+        {/* Service terms, kept short and scannable. */}
+        <div className="mt-14 border-t border-cocoa/20 pt-8 md:mt-20 md:grid md:grid-cols-12 md:gap-10 md:pt-10">
+          <Reveal as="h3" className="font-serif text-3xl font-semibold md:col-span-3">
+            {t.how.infoTitle}
+          </Reveal>
+          <ul className="mt-5 grid gap-x-10 gap-y-3 md:col-span-9 md:mt-0 md:grid-cols-2">
+            {t.how.info.map((line, index) => (
+              <Reveal
+                key={line}
+                as="li"
+                delay={(index % 2) * 80}
+                className="flex items-start gap-3 text-[0.95rem] leading-relaxed"
+              >
+                <Check size={18} strokeWidth={2.25} aria-hidden className="mt-0.5 shrink-0 text-cherry-deep" />
+                {line}
+              </Reveal>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

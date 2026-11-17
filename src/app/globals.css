@@ -1,42 +1,46 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Foundation: cream / espresso / pandan. Everything else is derived. */
-  --color-cream: #efe4d2;
-  --color-cream-light: #f7f0e3;
-  --color-cream-deep: #e3d4ba;
-  --color-espresso: #2b1b13;
-  --color-espresso-soft: #5b4637;
-  --color-pandan: #2f9b45;
-  /* Darker pandan for text/links on cream (AA contrast); the base is for fills. */
-  --color-pandan-deep: #1d6b30;
-  --color-pandan-mist: #cfe0c3;
-  --font-sans: var(--font-inter);
+  /* Foundation: butter cream / golden butter / cherry red / soft pink / dark cocoa. */
+  --color-cream: #fff2cc;
+  --color-cream-light: #fff9e6;
+  --color-butter: #f2c94c;
+  --color-butter-soft: #fbe8a6;
+  --color-cherry: #d94b55;
+  /* Deeper cherry for buttons and small text (AA contrast with cream). */
+  --color-cherry-deep: #a8323d;
+  --color-blush: #f5b8b8;
+  --color-blush-light: #fbddd9;
+  --color-cocoa: #35252a;
+  --color-cocoa-soft: #6b5359;
+  --font-sans: var(--font-dm-sans);
   --font-serif: var(--font-cormorant);
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 4.5rem;
+  scroll-padding-top: 4rem;
   overflow-x: clip;
 }
 
 body {
   background: var(--color-cream);
-  color: var(--color-espresso);
+  color: var(--color-cocoa);
   font-family: var(--font-sans), system-ui, sans-serif;
   overflow-x: clip;
+  /* Cormorant defaults to old-style figures; prices must read clearly. */
+  font-variant-numeric: lining-nums;
   -webkit-tap-highlight-color: transparent;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-pandan-deep);
+  outline: 2px solid var(--color-cherry-deep);
   outline-offset: 3px;
 }
 
 ::selection {
-  background: var(--color-pandan);
-  color: var(--color-espresso);
+  background: var(--color-butter);
+  color: var(--color-cocoa);
 }
 
 /* ---------- Scroll reveal (toggled by IntersectionObserver in <Reveal>) ---------- */
@@ -51,14 +55,14 @@ body {
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
   .reveal:not(.is-visible) {
     opacity: 0;
-    transform: translate3d(0, 28px, 0);
+    transform: translate3d(0, 24px, 0);
   }
 
   .reveal-fade:not(.is-visible) {
     transform: none;
   }
 
-  /* Image frames: fade in while the content settles from a slight zoom. */
+  /* Image frames: fade in while the photo settles from a slight zoom. */
   .reveal-image:not(.is-visible) {
     transform: none;
   }
@@ -66,7 +70,7 @@ body {
     transition: transform 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) var(--d, 0ms);
   }
   .reveal-image:not(.is-visible) > * {
-    transform: scale(1.1);
+    transform: scale(1.08);
   }
 
   /* Hairlines that draw in. */
@@ -91,7 +95,7 @@ body {
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translate3d(0, 24px, 0);
+    transform: translate3d(0, 22px, 0);
   }
   to {
     opacity: 1;
@@ -102,6 +106,15 @@ body {
 .hero-rise {
   animation: rise 1s cubic-bezier(0.22, 0.61, 0.36, 1) both;
   animation-delay: var(--d, 0ms);
+}
+
+/* Horizontal swipe tracks: snap to cards, hide the scrollbar. */
+.swipe-track {
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.swipe-track::-webkit-scrollbar {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

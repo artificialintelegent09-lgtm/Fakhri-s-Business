@@ -6,49 +6,47 @@ export type Dictionary = {
   nav: {
     home: string;
     collection: string;
-    howItWorks: string;
-    contact: string;
+    info: string;
     whatsapp: string;
-    menu: string;
-    closeMenu: string;
-    skip: string;
-    language: string;
     mainNav: string;
-    home_aria: string;
+    mobileNav: string;
+    language: string;
+    skip: string;
+    homeAria: string;
   };
   hero: {
-    eyebrow: string;
     titleBefore: string;
     titleEmphasis: string;
     titleAfter: string;
     text: string;
     ctaPrimary: string;
     ctaSecondary: string;
-    facts: { value: string; label: string }[];
   };
   collection: {
-    eyebrow: string;
     title: string;
     text: string;
-    previewAlt: (name: string) => string;
+    specialLabel: string;
+    specialNote: string;
     livePreview: string;
     orderNow: string;
     regularPrice: string;
     openingPrice: string;
     newTab: string;
+    swipeHint: string;
+    productPosition: (index: number, total: number) => string;
+    goTo: (name: string) => string;
   };
   products: Record<string, { description: string }>;
-  special: { title: string; text: string; note: string };
-  why: { eyebrow: string; title: string; items: Item[] };
-  how: { eyebrow: string; title: string; steps: Item[] };
-  service: { eyebrow: string; title: string; text: string; items: Item[] };
-  contact: { title: string; text: string; cta: string; numberLabel: string };
-  footer: {
-    menu: string;
-    contact: string;
-    rights: string;
-    watermark: string;
+  why: { title: string; items: Item[] };
+  how: {
+    title: string;
+    text: string;
+    steps: Item[];
+    infoTitle: string;
+    info: string[];
   };
+  cta: { title: string; text: string; button: string; numberLabel: string };
+  footer: { about: string; rights: string; watermark: string; photoNote: string };
   whatsapp: {
     order: (name: string, price: string) => string;
     general: string;
@@ -57,42 +55,38 @@ export type Dictionary = {
 
 const id: Dictionary = {
   nav: {
-    home: "Beranda",
+    home: "Home",
     collection: "Koleksi",
-    howItWorks: "Cara Pesan",
-    contact: "Kontak",
-    whatsapp: "Chat WhatsApp",
-    menu: "Buka menu",
-    closeMenu: "Tutup menu",
-    skip: "Lewati ke konten utama",
-    language: "Bahasa",
+    info: "Info",
+    whatsapp: "WhatsApp",
     mainNav: "Navigasi utama",
-    home_aria: "RiWed — kembali ke atas",
+    mobileNav: "Navigasi cepat",
+    language: "Bahasa",
+    skip: "Lewati ke konten utama",
+    homeAria: "RiWed — kembali ke atas",
   },
   hero: {
-    eyebrow: "Undangan Pernikahan Digital",
-    titleBefore: "Undangan Digital ",
-    titleEmphasis: "Elegan",
-    titleAfter: " untuk Hari Istimewamu.",
-    text: "Rayakan kisah cinta dengan undangan pernikahan berbasis website yang dirancang indah, personal, dan mudah dibagikan.",
+    titleBefore: "Undangan Digital yang Membuat Momen ",
+    titleEmphasis: "Istimewamu",
+    titleAfter: " Lebih Berarti.",
+    text: "Desain elegan, personal, dan mudah dibagikan.",
     ctaPrimary: "Jelajahi Koleksi",
-    ctaSecondary: "Pesan Sekarang",
-    facts: [
-      { value: "3", label: "Template pilihan" },
-      { value: "1 Tahun", label: "Masa aktif" },
-      { value: "3–5", label: "Hari kerja" },
-    ],
+    ctaSecondary: "Pesan via WhatsApp",
   },
   collection: {
-    eyebrow: "Koleksi",
     title: "Koleksi Kami",
-    text: "Temukan desain yang paling sesuai untuk hari istimewamu.",
-    previewAlt: (name) => `Pratinjau template ${name}`,
+    text: "Temukan desain favoritmu.",
+    specialLabel: "Special Opening Price",
+    specialNote:
+      "Harga yang tampil adalah harga pembukaan saat ini. Harga coret adalah harga normal.",
     livePreview: "Live Preview",
     orderNow: "Pesan Sekarang",
     regularPrice: "Harga normal",
     openingPrice: "Harga pembukaan",
     newTab: "membuka tab baru",
+    swipeHint: "Geser untuk melihat desain lainnya",
+    productPosition: (index, total) => `Desain ${index} dari ${total}`,
+    goTo: (name) => `Lihat ${name}`,
   },
   products: {
     "classic-luxury": {
@@ -105,87 +99,61 @@ const id: Dictionary = {
       description: "Kisah romantis yang terinspirasi dari alam.",
     },
   },
-  special: {
-    title: "SPECIAL OPENING PRICE",
-    text: "Rayakan awal kisahmu dengan harga spesial dari RiWed.",
-    note: "Harga yang tampil adalah harga pembukaan saat ini, sedangkan harga coret adalah harga normal.",
-  },
   why: {
-    eyebrow: "Mengapa RiWed",
-    title: "Sederhana, anggun, dan personal.",
+    title: "Mengapa RiWed?",
     items: [
       {
-        title: "Desain Elegan",
-        text: "Template undangan pernikahan yang dikurasi dengan cermat.",
+        title: "Dirancang dengan Cermat",
+        text: "Setiap template dikurasi dengan perhatian pada detail.",
       },
       {
-        title: "Dipersonalisasi untukmu",
-        text: "Nama, foto, detail acara, dan informasi pribadimu disesuaikan ke dalam undangan.",
+        title: "Personal untukmu",
+        text: "Nama, foto, dan detail acara disesuaikan dengan kisahmu.",
       },
       {
         title: "Mudah Dibagikan",
-        text: "Bagikan undanganmu lewat satu tautan website yang sederhana.",
-      },
-      {
-        title: "Pemesanan Mudah",
-        text: "Hubungi kami langsung melalui WhatsApp tanpa registrasi yang rumit.",
+        text: "Cukup satu tautan untuk keluarga dan tamu undangan.",
       },
     ],
   },
   how: {
-    eyebrow: "Cara Pemesanan",
-    title: "Tiga langkah sederhana.",
+    title: "Cara Memesan",
+    text: "Tanpa registrasi rumit. Semua proses lewat WhatsApp.",
     steps: [
       {
         title: "Pilih Desainmu",
-        text: "Lihat koleksi yang tersedia dan pilih template favoritmu.",
+        text: "Lihat koleksi dan pilih undangan favoritmu.",
       },
       {
         title: "Kirim Detailmu",
-        text: "Hubungi RiWed melalui WhatsApp, lalu kirimkan data pernikahan, foto, dan materi lain yang dibutuhkan.",
+        text: "Kirim data pernikahan, foto, dan materi lain lewat WhatsApp.",
       },
       {
         title: "Terima Undanganmu",
-        text: "RiWed menyesuaikan template pilihanmu dan mengirimkan website undangan yang sudah jadi.",
+        text: "Undangan yang sudah jadi siap kamu bagikan.",
       },
     ],
-  },
-  service: {
-    eyebrow: "Informasi Layanan",
-    title: "Perlu diketahui sebelum memesan.",
-    text: "Ketentuan layanan RiWed kami rangkum agar proses pemesanan terasa jelas dan nyaman.",
-    items: [
-      { title: "Revisi", text: "Maksimal 3 kali revisi minor." },
-      {
-        title: "Estimasi Pengerjaan",
-        text: "3–5 hari kerja setelah pembayaran dan seluruh materi lengkap diterima.",
-      },
-      { title: "Masa Aktif", text: "Website undangan aktif selama 1 tahun." },
-      {
-        title: "Pemesanan",
-        text: "Pemesanan diproses secara manual melalui WhatsApp.",
-      },
-      {
-        title: "Desain & Fitur",
-        text: "Desain dan fitur yang tersedia mengikuti template yang dipilih.",
-      },
-      {
-        title: "Fitur Kustom",
-        text: "Pengembangan fitur kustom saat ini belum tersedia.",
-      },
+    infoTitle: "Perlu diketahui",
+    info: [
+      "Maksimal 3 kali revisi minor",
+      "Estimasi 3–5 hari kerja setelah pembayaran dan seluruh materi lengkap diterima",
+      "Website undangan aktif selama 1 tahun",
+      "Pemesanan diproses manual melalui WhatsApp",
+      "Desain dan fitur mengikuti template yang dipilih",
+      "Pengembangan fitur kustom saat ini belum tersedia",
     ],
   },
-  contact: {
-    title: "Mari wujudkan hari istimewamu yang tak terlupakan.",
-    text: "Sudah punya desain pilihan? Mari kita buat undangan yang indah untuk momen istimewamu.",
-    cta: "Pesan via WhatsApp",
+  cta: {
+    title: "Kisahmu Layak Mendapat Undangan yang Indah.",
+    text: "Sudah menemukan desain favoritmu? Ceritakan kisahmu, kami bantu mewujudkannya.",
+    button: "Pesan Undangan Sekarang",
     numberLabel: "WhatsApp",
   },
   footer: {
-    menu: "Menu",
-    contact: "Kontak",
+    about: "RiWed menyediakan undangan pernikahan digital berbasis website.",
     rights: "Hak cipta dilindungi.",
     watermark: "Digital Invitation by RiWed.",
+    photoNote: "Foto sementara oleh fotografer Unsplash.",
   },
   whatsapp: {
     order: (name, price) =>
@@ -199,40 +167,36 @@ const en: Dictionary = {
   nav: {
     home: "Home",
     collection: "Collection",
-    howItWorks: "How It Works",
-    contact: "Contact",
-    whatsapp: "Chat on WhatsApp",
-    menu: "Open menu",
-    closeMenu: "Close menu",
-    skip: "Skip to main content",
-    language: "Language",
+    info: "Info",
+    whatsapp: "WhatsApp",
     mainNav: "Main navigation",
-    home_aria: "RiWed — back to top",
+    mobileNav: "Quick navigation",
+    language: "Language",
+    skip: "Skip to main content",
+    homeAria: "RiWed — back to top",
   },
   hero: {
-    eyebrow: "Digital Wedding Invitations",
-    titleBefore: "Your ",
-    titleEmphasis: "Love Story",
-    titleAfter: ", Beautifully Invited.",
-    text: "Celebrate your love with a thoughtfully designed digital wedding invitation, made to share your special moment beautifully.",
+    titleBefore: "Digital Invitations That Make Your ",
+    titleEmphasis: "Special Moment",
+    titleAfter: " More Meaningful.",
+    text: "Elegant, personal, and easy to share.",
     ctaPrimary: "Explore Collection",
-    ctaSecondary: "Order Now",
-    facts: [
-      { value: "3", label: "Curated templates" },
-      { value: "1 Year", label: "Active period" },
-      { value: "3–5", label: "Business days" },
-    ],
+    ctaSecondary: "Order via WhatsApp",
   },
   collection: {
-    eyebrow: "Collection",
-    title: "Our Collection",
-    text: "Find the perfect design for your special day.",
-    previewAlt: (name) => `${name} template preview`,
+    title: "The Collection",
+    text: "Find your favorite design.",
+    specialLabel: "Special Opening Price",
+    specialNote:
+      "The prices shown are the current opening prices. Struck-through prices are the regular prices.",
     livePreview: "Live Preview",
     orderNow: "Order Now",
     regularPrice: "Regular price",
     openingPrice: "Opening price",
     newTab: "opens in a new tab",
+    swipeHint: "Swipe to see more designs",
+    productPosition: (index, total) => `Design ${index} of ${total}`,
+    goTo: (name) => `Show ${name}`,
   },
   products: {
     "classic-luxury": {
@@ -245,90 +209,61 @@ const en: Dictionary = {
       description: "A romantic story inspired by nature.",
     },
   },
-  special: {
-    title: "SPECIAL OPENING PRICE",
-    text: "Celebrate your beginning with a special price from RiWed.",
-    note: "The prices shown are the current opening prices; the struck-through prices are the regular prices.",
-  },
   why: {
-    eyebrow: "Why RiWed",
-    title: "Simple, elegant, and personal.",
+    title: "Why RiWed?",
     items: [
       {
-        title: "Elegant Designs",
-        text: "Carefully curated wedding invitation templates.",
+        title: "Thoughtfully Designed",
+        text: "Every template is curated with attention to detail.",
       },
       {
-        title: "Personalized for You",
-        text: "Your names, photos, wedding details, and personal information are customized.",
+        title: "Made Personal",
+        text: "Names, photos, and event details tailored to your story.",
       },
       {
         title: "Easy to Share",
-        text: "Share your invitation through a simple website link.",
-      },
-      {
-        title: "Simple Ordering",
-        text: "Contact us directly through WhatsApp without complicated registration.",
+        text: "One simple link for your family and guests.",
       },
     ],
   },
   how: {
-    eyebrow: "How It Works",
-    title: "Three simple steps.",
+    title: "How to Order",
+    text: "No complicated registration. Everything happens on WhatsApp.",
     steps: [
       {
         title: "Choose Your Design",
-        text: "Browse the available collection and select your favorite template.",
+        text: "Browse the collection and pick your favorite invitation.",
       },
       {
         title: "Send Your Details",
-        text: "Contact RiWed through WhatsApp and provide your wedding information, photos, and other required materials.",
+        text: "Send your wedding details, photos, and other materials via WhatsApp.",
       },
       {
         title: "Receive Your Invitation",
-        text: "RiWed personalizes the selected template and sends you the finished invitation website.",
+        text: "Your finished invitation, ready to share.",
       },
     ],
-  },
-  service: {
-    eyebrow: "Service Information",
-    title: "Good to know before you order.",
-    text: "We've summarized RiWed's service terms so ordering feels clear and comfortable.",
-    items: [
-      { title: "Revisions", text: "Up to 3 minor revisions." },
-      {
-        title: "Estimated Completion",
-        text: "3–5 business days after payment and complete materials are received.",
-      },
-      {
-        title: "Active Period",
-        text: "The invitation website stays active for 1 year.",
-      },
-      {
-        title: "Ordering",
-        text: "Orders are handled manually through WhatsApp.",
-      },
-      {
-        title: "Design & Features",
-        text: "Available designs and features follow the selected template.",
-      },
-      {
-        title: "Custom Features",
-        text: "Custom feature development is currently unavailable.",
-      },
+    infoTitle: "Good to know",
+    info: [
+      "Up to 3 minor revisions",
+      "Estimated 3–5 business days after payment and complete materials are received",
+      "Invitation website stays active for 1 year",
+      "Orders are handled manually through WhatsApp",
+      "Available designs and features follow the selected template",
+      "Custom feature development is currently unavailable",
     ],
   },
-  contact: {
-    title: "Let's make your special day unforgettable.",
-    text: "Have a design in mind? Let's create a beautiful invitation for your special moment.",
-    cta: "Order via WhatsApp",
+  cta: {
+    title: "Your Story Deserves a Beautiful Invitation.",
+    text: "Found a design you love? Tell us your story and we'll bring it to life.",
+    button: "Order Your Invitation Now",
     numberLabel: "WhatsApp",
   },
   footer: {
-    menu: "Menu",
-    contact: "Contact",
+    about: "RiWed offers website-based digital wedding invitations.",
     rights: "All rights reserved.",
     watermark: "Digital Invitation by RiWed.",
+    photoNote: "Temporary photos by Unsplash photographers.",
   },
   whatsapp: {
     order: (name, price) =>

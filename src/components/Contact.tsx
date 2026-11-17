@@ -2,10 +2,11 @@
 
 import { MessageCircle } from "lucide-react";
 import { brand } from "@/data/content";
+import { ctaPhoto } from "@/data/images";
 import { useLang } from "@/lib/i18n";
 import { generalInquiryUrl } from "@/lib/whatsapp";
-import BotanicalSprig from "./Botanical";
 import ButtonLink from "./ButtonLink";
+import PhotoImage from "./Photo";
 import Reveal from "./Reveal";
 
 export default function Contact() {
@@ -15,44 +16,46 @@ export default function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-title"
-      className="bg-cream-deep px-5 pb-24 pt-20 md:px-8 md:pb-32 md:pt-28"
+      className="relative -mt-8 rounded-t-[2.5rem] bg-cocoa py-16 text-cream md:-mt-12 md:rounded-t-[4rem] md:py-28"
     >
-      {/* Arched frame echoing the hero and the invitation artwork. */}
-      <Reveal
-        variant="fade"
-        className="mx-auto max-w-3xl rounded-t-[10rem] border border-espresso/30 px-6 pb-14 pt-12 text-center md:rounded-t-[18rem] md:px-16 md:pb-20 md:pt-20"
-      >
-        <BotanicalSprig className="mx-auto h-20 w-14 text-pandan md:h-28 md:w-20" />
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 md:px-8 lg:grid-cols-12 lg:items-center lg:gap-16">
+        <Reveal variant="image" className="lg:order-2 lg:col-span-5">
+          <div className="relative mx-auto aspect-[4/3] w-full max-w-md overflow-hidden rounded-[2rem] rounded-tl-[6rem] bg-cocoa-soft lg:aspect-[4/5] lg:max-w-none lg:rounded-tl-[9rem]">
+            <PhotoImage
+              photo={ctaPhoto}
+              lang={lang}
+              sizes="(min-width: 1024px) 440px, 90vw"
+            />
+          </div>
+        </Reveal>
 
-        <Reveal
-          as="h2"
-          delay={100}
-          className="mt-6 font-serif text-[2.4rem] font-light leading-[1.05] sm:text-5xl md:text-6xl"
-        >
-          <span id="contact-title">{t.contact.title}</span>
-        </Reveal>
-        <Reveal
-          as="p"
-          delay={200}
-          className="mx-auto mt-6 max-w-md leading-relaxed text-espresso-soft md:text-lg"
-        >
-          {t.contact.text}
-        </Reveal>
-        <Reveal delay={300} className="mt-9 flex flex-col items-center gap-4">
-          <ButtonLink
-            href={generalInquiryUrl(lang)}
-            external
-            externalLabel={t.collection.newTab}
-            className="w-full sm:w-auto sm:px-10"
+        <div className="lg:col-span-7">
+          <Reveal
+            as="h2"
+            className="font-serif text-[2.4rem] font-normal italic leading-[1.05] sm:text-6xl lg:text-7xl"
           >
-            <MessageCircle size={19} aria-hidden />
-            {t.contact.cta}
-          </ButtonLink>
-          <p className="text-sm text-espresso-soft">
-            {t.contact.numberLabel}: {brand.whatsappDisplay}
-          </p>
-        </Reveal>
-      </Reveal>
+            <span id="contact-title">{t.cta.title}</span>
+          </Reveal>
+          <Reveal as="p" delay={100} className="mt-5 max-w-md text-lg leading-relaxed text-cream/75">
+            {t.cta.text}
+          </Reveal>
+          <Reveal delay={200} className="mt-8 flex flex-col items-start gap-4">
+            <ButtonLink
+              href={generalInquiryUrl(lang)}
+              external
+              externalLabel={t.collection.newTab}
+              variant="gold"
+              className="w-full sm:w-auto sm:px-9!"
+            >
+              <MessageCircle size={19} aria-hidden />
+              {t.cta.button}
+            </ButtonLink>
+            <p className="text-sm text-cream/65">
+              {t.cta.numberLabel}: {brand.whatsappDisplay}
+            </p>
+          </Reveal>
+        </div>
+      </div>
     </section>
   );
 }

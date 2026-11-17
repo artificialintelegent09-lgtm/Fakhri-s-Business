@@ -21,7 +21,7 @@ export default function LanguageSwitch({ className = "" }: { className?: string 
     <div
       role="group"
       aria-label={t.nav.language}
-      className={`inline-flex items-center rounded-full border border-espresso/25 p-0.5 text-xs font-medium ${className}`}
+      className={`inline-flex items-center rounded-full bg-cream-light/80 p-0.5 text-xs font-medium ring-1 ring-cocoa/15 ${className}`}
     >
       {options.map((option) => {
         const selected = lang === option.value;
@@ -34,9 +34,7 @@ export default function LanguageSwitch({ className = "" }: { className?: string 
             aria-label={option.name}
             onClick={() => setLang(option.value)}
             className={`min-h-9 min-w-10 rounded-full px-2.5 tracking-wider transition-colors duration-200 ${
-              selected
-                ? "bg-espresso text-cream"
-                : "text-espresso-soft hover:text-espresso"
+              selected ? "bg-cocoa text-cream" : "text-cocoa-soft hover:text-cocoa"
             }`}
           >
             {option.label}

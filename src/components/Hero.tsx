@@ -1,123 +1,115 @@
 "use client";
 
+import { ArrowRight, Sparkle } from "lucide-react";
 import type { CSSProperties } from "react";
-import { products } from "@/data/products";
+import { heroBouquet, heroCouple } from "@/data/images";
 import { useLang } from "@/lib/i18n";
 import { generalInquiryUrl } from "@/lib/whatsapp";
-import BotanicalSprig from "./Botanical";
 import ButtonLink from "./ButtonLink";
 import Parallax from "./Parallax";
-import ProductVisual from "./ProductVisual";
+import PhotoImage from "./Photo";
 
 const rise = (delay: number) => ({ "--d": `${delay}ms` }) as CSSProperties;
 
 export default function Hero() {
   const { lang, t } = useLang();
-  const [classic, modern, botanical] = products;
 
   return (
     <section
       id="home"
       aria-labelledby="hero-title"
-      className="relative mx-auto max-w-6xl px-5 pb-28 pt-8 md:px-8 md:pb-32 md:pt-14 lg:grid lg:grid-cols-12 lg:items-center lg:gap-6 lg:pt-10"
+      className="relative overflow-hidden pb-24 pt-4 md:pb-32 md:pt-8"
     >
-      <div className="lg:col-span-6">
-        <p
-          className="hero-rise mb-5 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.22em] text-pandan-deep"
-          style={rise(0)}
-        >
-          <span aria-hidden className="h-px w-8 bg-pandan" />
-          {t.hero.eyebrow}
-        </p>
-
-        <h1
-          id="hero-title"
-          className="hero-rise font-serif text-[2.75rem] font-light leading-[1.02] sm:text-6xl lg:text-[4.75rem]"
-          style={rise(120)}
-        >
-          {t.hero.titleBefore}
-          <em className="font-medium italic text-pandan-deep">{t.hero.titleEmphasis}</em>
-          {t.hero.titleAfter}
-        </h1>
-
-        <p
-          className="hero-rise mt-6 max-w-md text-base leading-relaxed text-espresso-soft md:text-lg"
-          style={rise(260)}
-        >
-          {t.hero.text}
-        </p>
-
-        <div
-          className="hero-rise mt-8 flex flex-col gap-3 sm:flex-row"
-          style={rise(400)}
-        >
-          <ButtonLink href="#collection" variant="dark">
-            {t.hero.ctaPrimary}
-          </ButtonLink>
-          <ButtonLink
-            href={generalInquiryUrl(lang)}
-            external
-            externalLabel={t.collection.newTab}
-            variant="primary"
-          >
-            {t.hero.ctaSecondary}
-          </ButtonLink>
-        </div>
-
-        <dl
-          className="hero-rise mt-10 grid max-w-md grid-cols-3 border-t border-espresso/20 pt-5"
-          style={rise(540)}
-        >
-          {t.hero.facts.map((fact) => (
-            <div key={fact.label} className="flex flex-col pr-3">
-              <dt className="order-2 mt-1 text-[0.7rem] uppercase leading-snug tracking-[0.12em] text-espresso-soft">
-                {fact.label}
-              </dt>
-              <dd className="font-serif text-2xl leading-none md:text-3xl">
-                {fact.value}
-              </dd>
-            </div>
-          ))}
-        </dl>
+      {/* Soft colour fields behind the content. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-28 top-24 size-72 rounded-full bg-blush/70 md:-left-20 md:size-[26rem]" />
       </div>
 
-      {/* Layered invitation composition. Layers drift at different speeds on desktop. */}
-      <div
-        className="hero-rise relative mx-auto mt-14 h-[26rem] w-full max-w-md sm:h-[32rem] lg:col-span-6 lg:mt-0 lg:h-[39rem] lg:max-w-none"
-        style={rise(300)}
-        aria-hidden
-      >
-        <Parallax speed={0.05} className="absolute inset-y-0 right-[4%] w-[68%]">
-          <div className="size-full rounded-t-full border border-pandan bg-pandan/10" />
-        </Parallax>
+      <div className="relative mx-auto max-w-6xl px-5 md:px-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-10">
+        <div className="lg:col-span-6">
+          <h1
+            id="hero-title"
+            className="hero-rise font-serif text-[2.6rem] font-normal italic leading-[1.04] sm:text-6xl lg:text-[4.5rem]"
+            style={rise(0)}
+          >
+            {t.hero.titleBefore}
+            <span className="text-cherry-deep">{t.hero.titleEmphasis}</span>
+            {t.hero.titleAfter}
+          </h1>
 
-        <Parallax speed={-0.06} className="absolute left-0 top-[16%] w-[34%]">
-          <div className="-rotate-6 shadow-[0_24px_40px_-24px_rgba(43,27,19,0.5)]">
-            <div className="aspect-[3/4]">
-              <ProductVisual theme={botanical.theme} />
-            </div>
+          <p
+            className="hero-rise mt-5 max-w-sm text-lg leading-relaxed text-cocoa-soft"
+            style={rise(140)}
+          >
+            {t.hero.text}
+          </p>
+
+          <div
+            className="hero-rise mt-7 flex flex-col gap-3 sm:flex-row"
+            style={rise(280)}
+          >
+            <ButtonLink href="#collection">
+              {t.hero.ctaPrimary}
+              <ArrowRight size={18} aria-hidden />
+            </ButtonLink>
+            <ButtonLink
+              href={generalInquiryUrl(lang)}
+              external
+              externalLabel={t.collection.newTab}
+              variant="secondary"
+            >
+              {t.hero.ctaSecondary}
+            </ButtonLink>
           </div>
-        </Parallax>
+        </div>
 
-        <Parallax speed={-0.1} className="absolute right-[9%] top-[5%] z-10 w-[50%]">
-          <div className="shadow-[0_30px_50px_-28px_rgba(43,27,19,0.55)]">
-            <div className="aspect-[3/4]">
-              <ProductVisual theme={classic.theme} />
+        {/* Photo composition: a tall arched portrait with a detail photo layered on top. */}
+        <div
+          className="hero-rise relative mx-auto mt-10 w-[86%] max-w-sm sm:max-w-md lg:col-span-6 lg:mt-0 lg:w-full lg:max-w-lg lg:justify-self-end"
+          style={rise(200)}
+        >
+          <div
+            aria-hidden
+            className="absolute -right-5 -top-5 size-28 rounded-full bg-butter/70 sm:size-36 lg:-right-8 lg:-top-8 lg:size-44"
+          />
+          <Parallax speed={-0.05}>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-t-[999px] rounded-b-[2rem] bg-blush shadow-[0_30px_60px_-30px_rgba(53,37,42,0.55)]">
+              <PhotoImage
+                photo={heroCouple}
+                lang={lang}
+                priority
+                sizes="(min-width: 1024px) 512px, (min-width: 640px) 448px, 86vw"
+              />
             </div>
-          </div>
-        </Parallax>
+          </Parallax>
 
-        <Parallax speed={-0.18} className="absolute bottom-0 left-[12%] z-20 w-[37%]">
-          <div className="rotate-3 border-4 border-cream shadow-[0_24px_40px_-24px_rgba(43,27,19,0.55)] sm:border-[6px]">
-            <div className="aspect-[3/4]">
-              <ProductVisual theme={modern.theme} />
+          <Parallax
+            speed={-0.12}
+            className="absolute -bottom-6 -left-5 z-10 w-[40%] sm:-left-8"
+          >
+            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border-4 border-cream shadow-[0_20px_40px_-20px_rgba(53,37,42,0.6)]">
+              <PhotoImage
+                photo={heroBouquet}
+                lang={lang}
+                priority
+                sizes="(min-width: 640px) 180px, 34vw"
+              />
             </div>
-          </div>
-        </Parallax>
+          </Parallax>
 
-        <Parallax speed={0.1} className="absolute -right-3 bottom-2 z-30 h-36 w-24 sm:h-48 sm:w-32">
-          <BotanicalSprig className="size-full text-pandan" />
-        </Parallax>
+          <Sparkle
+            aria-hidden
+            size={30}
+            strokeWidth={1.5}
+            className="absolute -right-3 top-[18%] fill-butter text-cherry"
+          />
+          <Sparkle
+            aria-hidden
+            size={16}
+            strokeWidth={1.5}
+            className="absolute -right-5 top-[26%] fill-cherry text-cherry"
+          />
+        </div>
       </div>
     </section>
   );

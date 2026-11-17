@@ -8,7 +8,7 @@ import { getLogoSrc } from "@/lib/assets";
  * components as an element (e.g. `<Navbar logo={<Logo />} />`).
  */
 export default function Logo({
-  size = 44,
+  size = 40,
   priority = true,
   className = "",
 }: {
@@ -19,7 +19,7 @@ export default function Logo({
   const logoSrc = getLogoSrc();
 
   return (
-    <span className={`inline-flex items-center gap-3 ${className}`}>
+    <span className={`inline-flex items-center gap-2.5 ${className}`}>
       {logoSrc && (
         <Image
           src={logoSrc}
@@ -28,11 +28,11 @@ export default function Logo({
           height={size}
           sizes={`${size}px`}
           priority={priority}
-          className="rounded-full object-cover ring-1 ring-espresso/15"
+          className="rounded-full object-cover ring-1 ring-cocoa/15"
           style={{ width: size, height: size }}
         />
       )}
-      <span className="font-serif text-[1.75rem] font-medium leading-none tracking-wide">
+      <span className="font-serif text-[1.7rem] font-semibold leading-none tracking-[0.12em] uppercase">
         {brand.name}
       </span>
     </span>
