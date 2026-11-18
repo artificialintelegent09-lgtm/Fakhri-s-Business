@@ -95,7 +95,8 @@ body {
 
 @keyframes rise {
   from {
-    opacity: 0;
+    /* Not 0: Chrome ignores elements first painted fully transparent, so a 0 start hides the hero photo from LCP. */
+    opacity: 0.01;
     transform: translate3d(0, 22px, 0);
   }
   to {
